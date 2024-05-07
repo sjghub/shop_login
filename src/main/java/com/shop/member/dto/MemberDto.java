@@ -1,17 +1,15 @@
-package com.shop.user.dto;
+package com.shop.member.dto;
 
 
 import lombok.*;
-import com.shop.user.entity.User;
+import com.shop.member.entity.Member;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
 
 @AllArgsConstructor
 @Getter
 @ToString
-public class UserDto {
+public class MemberDto {
 
     private Long id;
     private String username;
@@ -20,8 +18,8 @@ public class UserDto {
 
 
 
-    public User toEntity(){
+    public Member toEntity(){
         String encode = new BCryptPasswordEncoder().encode(password);
-        return new User(id, username, encode, displayName);
+        return new Member(id, username, encode, displayName);
     }
 }

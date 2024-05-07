@@ -1,12 +1,15 @@
-package com.shop.user.entity;
+package com.shop.member.entity;
 
 
-import com.shop.user.dto.UserDto;
+import com.shop.member.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.List;
 
 
 @Getter
@@ -14,7 +17,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "Member")
-public class User {
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,8 +28,11 @@ public class User {
     @Column
     private String displayName;
 
-    public UserDto createDto(User user){
-        return new UserDto(user.getId(),user.getUsername(),user.getPassword(),user.getDisplayName());
+    public Member(String username, String password, List<GrantedAuthority> authorities) {
+    }
+
+    public MemberDto createDto(Member user){
+        return new MemberDto(user.getId(),user.getUsername(),user.getPassword(),user.getDisplayName());
     }
 
 }

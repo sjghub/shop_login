@@ -2,6 +2,8 @@ package com.shop.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
     @Bean
     PasswordEncoder passwordEncoder(){
@@ -27,6 +30,8 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/") // 로그인 성공시 이동 url
                         // 실패시 기본적으로 /login?error 로 이동
         );
+        http.logout(logout -> logout.logoutUrl("/logout")
+                .logoutSuccessUrl("/"));
         return http.build();
     }
 
